@@ -29,25 +29,28 @@ document.querySelector('#num-8').addEventListener('click', onClickNumber);
 document.querySelector('#num-9').addEventListener('click', onClickNumber);
 
 // 고차함수로 중복 제거
+// 고차함수: 함수가 함수를 반환하는 함수
 const onClickOperator = (op) => (event) => {
+  if (numTwo) { // 연달아 계산 구현
+    numOne = onClickEqual();
+    operator = op;
+    $operator.value = op;
+    numTwo = '';
+    return;
+  } 
   if (numOne) {
     operator = op;
     $operator.value = op;
+    return;
+  } 
+  if (op === "-") { // 음수 시작 구현
+    numOne = 0;
+    operator = op;
+    $operator.value = op;
   } else {
-    alert("숫자를 먼저 입력하세요")
+    alert("숫자를 먼저 입력하세요");
   }
 }
-// // return 표시
-// const onClickOperator = (op) => {
-//   return () => {
-//     if (numOne) {
-//     operator = op;
-//     $operator.value = op;
-//     } else {
-//       alert("숫자를 먼저 입력하세요")
-//     }
-//   }
-// }
 
 // onClickOperator()는 함수를 return하므로(고차함수) 이벤트리스터 두번째 인자에 함수가 리턴되어있다.
 // 그래서 실행되는 상태가 아니다.
@@ -70,6 +73,7 @@ const onClickEqual = () => {
   } else if (operator === "*") {
     $result.value = numOne * numTwo;
   }
+  return $result.value;
 } 
 document.querySelector('#calculate').addEventListener('click', onClickEqual);
 
