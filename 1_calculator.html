@@ -3,7 +3,7 @@
 	<meta charset="utf-8">
 	<title>계산기</title>
 	<style>
-    * { box-sizing: border-box }
+    * { box-sizing: border-box }  
     #result { width: 180px; height: 50px; margin:5px; text-align: right }
     #operator { width: 50px; height: 50px; margin:5px; text-align: right }
     button { width: 50px; height: 50px; margin:5px }
@@ -39,27 +39,5 @@
     <button id="multiply">x</button>
   </div>
 
-<script>
-	let numOne = '';1
-	let operator = '';
-	let numTwon = '';
-	const $operator = document.querySelector('#operator')
-	const $result = document.querySelector('#result')
-
-	documnet.querySelector('#num-0').addEventListener('click', () => {
-  if (operator) {
-    numTwo += '0';
-  }	else {
-    numOne += '0';
-  }
-  $result.value += '0';
-});
-	
-	documnet.querySelector('#plus').addEventListener('click', () => {});
-	documnet.querySelector('#minus').addEventListener('click', () => {});
-	documnet.querySelector('#devide').addEventListener('click', () => {});
-	documnet.querySelector('#multiply').addEventListener('click', () => {});
-	documnet.querySelector('#calculate').addEventListener('click', () => {});
-	documnet.querySelector('#clear').addEventListener('click', () => {});
-</script>
-</body>
+  <script src="./start.js"></script>
+  </body>
