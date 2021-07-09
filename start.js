@@ -1,11 +1,18 @@
 let numOne = '';
 let operator = '';
 let numTwo = '';
+let result = '';
 const $operator = document.querySelector('#operator')
 const $result = document.querySelector('#result')
 
 // event.target.textContent 로 중복 제거
 const onClickNumber = (event) => {
+  if (result) {
+    onClickClear();
+    numOne += event.target.textContent;
+    $result.value += event.target.textContent;
+    return;
+  } 
   if (!operator) {
     numOne += event.target.textContent;
     $result.value += event.target.textContent;
@@ -32,7 +39,9 @@ document.querySelector('#num-9').addEventListener('click', onClickNumber);
 // 고차함수: 함수가 함수를 반환하는 함수
 const onClickOperator = (op) => (event) => {
   if (numTwo) { // 연달아 계산 구현
-    numOne = onClickEqual();
+    calculate();
+    numOne = result;
+    result = ''
     operator = op;
     $operator.value = op;
     numTwo = '';
@@ -59,21 +68,37 @@ document.querySelector('#minus').addEventListener('click', onClickOperator("-"))
 document.querySelector('#divide').addEventListener('click', onClickOperator("/"));
 document.querySelector('#multiply').addEventListener('click', onClickOperator("*"));
 
-const onClickEqual = () => {
-  if (!numTwo) {
-    alert("숫자를 먼저 입력하세요2");
-    return;
-  } 
+const calculate= () => {
   if (operator === "+") {
-    $result.value = Number(numOne) + Number(numTwo);
+    result = Number(numOne) + Number(numTwo);
   } else if (operator === "-") {
-    $result.value = numOne - numTwo;
+    result = numOne - numTwo;
   } else if (operator === "/") {
-    $result.value = numOne / numTwo;
+    result = numOne / numTwo;
   } else if (operator === "*") {
-    $result.value = numOne * numTwo;
+    result = numOne * numTwo;
   }
-  return $result.value;
+  $result.value = result;
+  $operator.value = '';
+} 
+
+const onClickEqual = () => {
+  if (result) {
+    numOne = result;
+    result = '';
+    calculate()
+    return;
+  }
+  if (numTwo) {
+    calculate();
+    return;
+  }
+  if (!operator) {
+    alert("개발 중")
+    return;
+  }
+  numTwo = numOne;
+  calculate();
 } 
 document.querySelector('#calculate').addEventListener('click', onClickEqual);
 
@@ -81,6 +106,7 @@ const onClickClear = () => {
   numOne = ''
   operator = ''
   numTwo = ''
+  result = ''
   $operator.value = '';
   $result.value = '';
 }
