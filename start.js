@@ -52,13 +52,10 @@ const onClickOperator = (op) => (event) => {
     $operator.value = op;
     return;
   } 
-  if (op === "-") { // 음수 시작 구현
-    numOne = 0;
-    operator = op;
-    $operator.value = op;
-  } else {
-    alert("숫자를 먼저 입력하세요");
-  }
+  numOne = 0;
+  operator = op;
+  $operator.value = operator;
+  $result.value += numOne;
 }
 
 // onClickOperator()는 함수를 return하므로(고차함수) 이벤트리스터 두번째 인자에 함수가 리턴되어있다.
